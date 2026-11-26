@@ -9,5 +9,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const ENTRY =
   "The Roombas \u2014 a vacuum-cleaner boy band whose hit 'Suck It Up (Buttercup)' cleaned up at the awards.";
 
+// The gate only accepts 1-200 characters: refuse to write anything outside it.
+const ENTRY_LENGTH = [...ENTRY].length;
+if (ENTRY_LENGTH < 1 || ENTRY_LENGTH > 200) {
+  throw new Error(`entry must be 1-200 characters, got ${ENTRY_LENGTH}`);
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", ENTRY, "utf8");
